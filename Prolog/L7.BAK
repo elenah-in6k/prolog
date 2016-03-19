@@ -13,41 +13,26 @@ predicates
 	subtract(symbol)
 	multiply(symbol)
 	divide(symbol)
-	func(list, real)
-	length(list,real)
-	f(list,real,real,real)
 
 clauses
 	input(X):-
 		write("String function = "),
 		readln(X).
 		
-	add(X):- X = "+".
-	subtract(X):- X = "-".
-	multiply(X):- X = "*".
-	divide(X):- X = "/".
+	add(X):- X = '+'.
+	subtract(X): X = '-'.
+	multiply(X):- X = '*'.
+	divide(X):- X = '/'.
 	
 	find_n([],_,0,_):-!.
-	find_n([_|T],N,K,F):- N<>K,K1=K+1,find_n(T,N,K1,F).
+	find_n([_|T],N,K,F):- N<>K,K1=K+1,find_n(T,N,K1).
 	find_n([H|_],_,_,F):- F=H,nl,!.
 	
 	output(Name, Value):- 
 		write(Name," = ", Value),
 		nl.
-
-	
-	length([], 0). 
-	length([X|L], N):-length(L, M), N is M+1.
-	func(X,R):-  length(X,N), f(X,N,1,0,Fr).
-	
-	f(X,N,K,R,Fr):- N<>K, 
-		find_n(X,K,1,F), float(F), 
-		K1=K+1, f(X,N,K1,F,Fr1), R=Fr1.
-		find_n(X,K1,1,R1), add(R1),
-		K2=K1+1, find_n(X,K2,1,F2), float(F2),
-		R=F1+F2, K3=K2+1, f(X,N,K3,R,Fr1), Fr=Fr1.
-	f(X,N,K,R):- N<>K, K1=K+1, find_n(X,K,1,F), add(F), 
-    prog(X,Result):- str_char(X,F), func(F,Result)
+		
+    prog(X,F):- str_char(X,F)
 	.
 
 	string_namelist(S,[H |T]):-
